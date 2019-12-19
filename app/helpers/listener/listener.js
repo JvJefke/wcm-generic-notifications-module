@@ -109,11 +109,16 @@ class Listener {
 
 	reinitialize() {
 		this.reloadConfig();
+		this.removeListeners();
 		this._registerListeners();
 	}
 
 	// Stop listening for WCM events
 	removeListeners() {
+		if (!Array.isArray(Emitter.listenersAny()) || !Emitter.listenersAny().length) {
+			return;
+		}
+
 		Emitter.offAny(this._selector);
 	}
 
